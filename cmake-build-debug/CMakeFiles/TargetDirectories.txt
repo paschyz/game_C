@@ -1,0 +1,3 @@
+C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/cmake-build-debug/CMakeFiles/projet_2a_Clion.dir
+C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/cmake-build-debug/CMakeFiles/rebuild_cache.dir
