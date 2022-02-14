@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include "declarations.h"
 
- void launch(int verif);
- int askLaunch();
- int quit();
+
+
+
 int main() {
     int verifLaunch=0;
     int verifQuit;
@@ -53,3 +54,4 @@ int quit(){
     }while(response!=0&&response!=1);
     return response;
 }
+

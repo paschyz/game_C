@@ -74,6 +74,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/declarations.h">
+			<Option target="projet_2a_Clion"/>
+		</Unit>
 		<Unit filename="C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/main.c">
 			<Option target="projet_2a_Clion"/>
 		</Unit>

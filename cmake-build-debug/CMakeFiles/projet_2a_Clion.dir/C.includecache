@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/declarations.h
+
+C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/main.c
+stdio.h
+-
+declarations.h
+C:/Users/nicol/Documents/Projet_C_Jeu_2e_annee/game_C/declarations.h
+
