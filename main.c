@@ -197,7 +197,7 @@ void startPlayingTxt(character *charaTab,character *board,int sizeChara){
     firstLoadCharaBoardTxt(board);
     setupResponse=selectBoardSlot(board,charaTab,sizeChara);
     if(setupResponse){
-        printf("YOYOYOYOYOYO");
+        printf("YOYOYOYOYOYO");//à remplacer par le lancement de la partie
     }
 
 }
@@ -220,7 +220,7 @@ int selectBoardSlot(character *board,character *charaTab,int sizeChara){
             if (response > boardSize || response < 0)
                 printf("Nah wrong answer!!! Try again\n");
         } while (response > boardSize || response < 0);
-        if (response != boardSize + 1 || response != boardSize) {
+        if (response != boardSize + 1 && response != boardSize) {
             assignToSlot(board, charaTab, sizeChara, response,alreadyUsed);
         }
     }while (response!=boardSize&&response!=boardSize+1);
@@ -243,7 +243,7 @@ void assignToSlot(character *board,character *charaTab, int sizeChara,int slot,i
         scanf("%d",&response);
         if(response>sizeChara||response<0)
             printf("Nah wrong answer!!! Try again\n");
-    }while(response>sizeChara||response<0);
+    }while(response>sizeChara+1||response<0);
     if (response!=6&&response!=7) {
 
         if(alreadyUsed[response]==-1){
