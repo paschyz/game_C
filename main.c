@@ -119,7 +119,16 @@ void loadMonsterTxt(character *boardMonster,int sizeMonster){
         (*(boardMonster+i)).type/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
     }
 }
-
+void firstLoadCharaBoardTxt(character *boardChara){
+    for(int i=0;i<5;i++){
+        strcpy((*(boardChara+i)).name,"empty");
+        (*(boardChara+i)).hp=0;
+        (*(boardChara+i)).maxhp=0;
+        (*(boardChara+i)).att=0;
+        (*(boardChara+i)).skill;
+        (*(boardChara+i)).type;
+    }
+}
 void printMultCharaTxt(character *charaTab,int sizeChara){
     printf("List of characters:\n");
     for(int i=0;i<sizeChara;i++){
@@ -185,6 +194,7 @@ void startPlayingTxt(character *charaTab,character *board,int sizeChara){
     int sizeMonster = 6/*remplacer par le nombre de monstres de la BD*/;
     loadMonsterTxt(board+boardSize, sizeMonster);
     printEnemieBoard(board);
+    firstLoadCharaBoardTxt(board);
     setupResponse=selectBoardSlot(board,charaTab,sizeChara);
     if(setupResponse){
         printf("YOYOYOYOYOYO");
@@ -195,10 +205,14 @@ void startPlayingTxt(character *charaTab,character *board,int sizeChara){
 
 int selectBoardSlot(character *board,character *charaTab,int sizeChara){
     int response;
+    int alreadyUsed[sizeChara];
+    for (int i = 0; i < sizeChara; ++i) {
+        alreadyUsed[i]=0;
+    }
     do {
         do {
             for (int i = 0; i < boardSize; i++) {
-                printf("%d)%s\n",i,(*(board+i)).name[0]==NULL?(*(board+i)).name:"");
+                printf("%d)%s\n",i,(*(board+i)).name);
             }
             printf("%d)Play\n%d)Cancel\n", boardSize, boardSize + 1);
             fflush(stdin);
@@ -207,7 +221,7 @@ int selectBoardSlot(character *board,character *charaTab,int sizeChara){
                 printf("Nah wrong answer!!! Try again\n");
         } while (response > boardSize || response < 0);
         if (response != boardSize + 1 || response != boardSize) {
-            assignToSlot(board, charaTab, sizeChara, response);
+            assignToSlot(board, charaTab, sizeChara, response,alreadyUsed);
         }
     }while (response!=boardSize&&response!=boardSize+1);
     if(response==boardSize){
@@ -216,20 +230,22 @@ int selectBoardSlot(character *board,character *charaTab,int sizeChara){
     return 0;
 
 }
-void assignToSlot(character *board,character *charaTab, int sizeChara,int slot){
+void assignToSlot(character *board,character *charaTab, int sizeChara,int slot,int *alreadyUsed){
     int response;
-    printMultCharaTxt(charaTab,sizeChara);
+    int verifUsed=0;
     do{
         for ( int i = 0; i < sizeChara; i++) {
-            printf("%d)%s\n",i,(*(charaTab+i)).name);
+            if(alreadyUsed[i]==0)
+                printf("%d)%s\n",i,(*(charaTab+i)).name);
         }
-        printf("%d)Cancel",sizeChara);
+        printf("%d)Cancel\n",sizeChara);
         fflush(stdin);
         scanf("%d",&response);
         if(response>sizeChara||response<0)
             printf("Nah wrong answer!!! Try again\n");
-    }while(response>sizeChara||response<1);
+    }while(response>sizeChara||response<0);
     *(board+slot)=*(charaTab+response);
+    *(alreadyUsed+response)=1;
 
 }
 
