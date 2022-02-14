@@ -3,7 +3,7 @@
 #include "declarations.h"
 #include <string.h>
 
-
+static int boardSize=5;
 
 
 int main() {
@@ -63,8 +63,7 @@ void runTxt(){
         int sizeChara = 6/*remplacer par le nombre de personnages jouables de la BD*/;
         character charaTab[sizeChara];
         loadCharaTxt(charaTab, sizeChara);
-        character board[2][5];
-        board[1][0]=charaTab[0];
+        character board[2][boardSize];
         menuResolutionTxt(responseMenu,charaTab,board[0],sizeChara);
 
     }
@@ -84,6 +83,7 @@ int askMenuTxt(){
 void menuResolutionTxt(int response, character *charaTab,character *board,int sizeChara){
     switch (response) {
         case 1:
+            startPlayingTxt(charaTab,board,sizeChara);
             break;
         case 2:
             seeCharaTxt(charaTab,sizeChara);
@@ -97,8 +97,9 @@ void menuResolutionTxt(int response, character *charaTab,character *board,int si
 void loadCharaTxt(character *charaTab,int size){
     printf("loading character\n");
     for(int i=0;i<size;i++){
-        strcpy((*(charaTab+i)).name,"a\0"/*remplacer a\0 par le nom dans la BD*/);
+        strcpy((*(charaTab+i)).name,"aaa\0"/*remplacer a\0 par le nom dans la BD*/);
         (*(charaTab+i)).hp/*de là*/=12/*à là, remplacer par un appel de bd*/;
+        (*(charaTab+i)).maxhp/*de là*/=12/*à là, remplacer par un appel de bd*/;
         (*(charaTab+i)).att/*de là*/=0/*à là, remplacer par un appel de bd*/;
         (*(charaTab+i)).skill/*de là*/=0/*à là, remplacer par un appel de bd*/;
         (*(charaTab+i)).type/*de là*/=0/*à là, remplacer par un appel de bd*/;
@@ -110,19 +111,13 @@ void loadMonsterTxt(character *boardMonster,int sizeMonster){
     printf("placing monster on board\n");
     for(int i=0;i<5;i++){
         randValue=rand()%(sizeMonster);
-        strcpy((*(boardMonster+i)).name,"b\0"/*remplacer b\0 par le nom dans la BD*/);
+        strcpy((*(boardMonster+i)).name,"bbb\0"/*remplacer b\0 par le nom dans la BD*/);
         (*(boardMonster+i)).hp/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
+        (*(boardMonster+i)).maxhp/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
         (*(boardMonster+i)).att/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
         (*(boardMonster+i)).skill/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
         (*(boardMonster+i)).type/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
     }
-}
-
-void startPlayingTxt(character *charaTab,character *board,int sizeChara){
-    int sizeMonster = 6/*remplacer par le nombre de monstres de la BD*/;
-    loadMonsterTxt(board+5, sizeMonster);
-    printMultCharaTxt(charaTab,sizeChara);
-
 }
 
 void printMultCharaTxt(character *charaTab,int sizeChara){
@@ -133,7 +128,7 @@ void printMultCharaTxt(character *charaTab,int sizeChara){
 
 }
 void printCharaTxt(character selectedChara){
-    printf("Name: %s\nHP: %d\nAttack: %d\nType: ",selectedChara.name,selectedChara.hp,selectedChara.att);
+    printf("Name: %s\nMax HP: %d\nAttack: %d\nType: ",selectedChara.name,selectedChara.maxhp,selectedChara.att);
     printTypeTxt(selectedChara.type);
     printf("Skill: ");
     printSkillTxt(selectedChara.skill);
@@ -183,4 +178,79 @@ void seeCharaTxt(character *charaTab,int sizeChara){
         scanf("%d",&continueResponse);
     }while(continueResponse==0);
 
+}
+
+void startPlayingTxt(character *charaTab,character *board,int sizeChara){
+    int setupResponse;
+    int sizeMonster = 6/*remplacer par le nombre de monstres de la BD*/;
+    loadMonsterTxt(board+boardSize, sizeMonster);
+    printEnemieBoard(board);
+    setupResponse=selectBoardSlot(board,charaTab,sizeChara);
+    if(setupResponse){
+        printf("YOYOYOYOYOYO");
+    }
+
+}
+
+
+int selectBoardSlot(character *board,character *charaTab,int sizeChara){
+    int response;
+    do {
+        do {
+            for (int i = 0; i < boardSize; i++) {
+                printf("%d)%s\n",i,(*(board+i)).name[0]==NULL?(*(board+i)).name:"");
+            }
+            printf("%d)Play\n%d)Cancel\n", boardSize, boardSize + 1);
+            fflush(stdin);
+            scanf("%d", &response);
+            if (response > boardSize || response < 0)
+                printf("Nah wrong answer!!! Try again\n");
+        } while (response > boardSize || response < 0);
+        if (response != boardSize + 1 || response != boardSize) {
+            assignToSlot(board, charaTab, sizeChara, response);
+        }
+    }while (response!=boardSize&&response!=boardSize+1);
+    if(response==boardSize){
+        return 1;
+    }
+    return 0;
+
+}
+void assignToSlot(character *board,character *charaTab, int sizeChara,int slot){
+    int response;
+    printMultCharaTxt(charaTab,sizeChara);
+    do{
+        for ( int i = 0; i < sizeChara; i++) {
+            printf("%d)%s\n",i,(*(charaTab+i)).name);
+        }
+        printf("%d)Cancel",sizeChara);
+        fflush(stdin);
+        scanf("%d",&response);
+        if(response>sizeChara||response<0)
+            printf("Nah wrong answer!!! Try again\n");
+    }while(response>sizeChara||response<1);
+    *(board+slot)=*(charaTab+response);
+
+}
+
+void printEnemieBoard(character *board){
+    for(int i=0;i<boardSize;i++){
+        printf("%c%c\t",(*(board+i+boardSize)).name[0],(*(board+i+boardSize)).name[1]);
+    }
+    printf("\n");
+    for(int i=0;i<boardSize;i++){
+        printf("%d/%d\t",(*(board+i+boardSize)).hp,(*(board+i+boardSize)).maxhp);
+    }
+    printf("\n");
+    for(int i=0;i<boardSize;i++){
+        printf("%d\t",(*(board+i+boardSize)).att);
+    }
+    printf("\n\n\n");
+}
+
+void printAlliesBoard(character *board);
+void resetHeroHP(character *board){
+    for (int i=0;i<boardSize;i++){
+        (*(board+i)).hp=(*(board+i)).maxhp;
+    }
 }
