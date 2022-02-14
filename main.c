@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "declarations.h"
 
 
@@ -56,14 +57,20 @@ int quit(){
 }
 
 void runTxt(){
-    int taille/*=remplacer par le nombre de personnages jouables de la BD*/;
-    character charaTab[taille];
+    int sizeChara=1/*remplacer par le nombre de personnages jouables de la BD*/;
+    character charaTab[sizeChara];
+    loadCharaTxt(charaTab,sizeChara);
+    character board[2][5];
+    int sizeMonster=1/*remplacer par le nombre de monstres*/;
+    loadMonsterTxt(board[1],sizeMonster);
+
+
 
 }
 
-void loadCharaTxt(character *charaTab,int taille){
+void loadCharaTxt(character *charaTab,int size){
     printf("loading character\n");
-    for(int i=0;i<taille;i++){
+    for(int i=0;i<size;i++){
         (*(charaTab+i)).name/*de là*/[0]="a"/*à là, remplacer par un appel de bd*/;
         (*(charaTab+i)).hp/*de là*/=0/*à là, remplacer par un appel de bd*/;
         (*(charaTab+i)).att/*de là*/=0/*à là, remplacer par un appel de bd*/;
@@ -72,3 +79,15 @@ void loadCharaTxt(character *charaTab,int taille){
     }
 }
 
+void loadMonsterTxt(character *boardMonster,int sizeMonster){
+    int randValue;
+    printf("placing monster on board\n");
+    for(int i=0;i<5;i++){
+        randValue=rand()%(sizeMonster);
+        (*(boardMonster+randValue)).name/*de là*/[0]="a"/*à là, remplacer par un appel de bd*/;
+        (*(boardMonster+randValue)).hp/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(boardMonster+randValue)).att/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(boardMonster+randValue)).skill/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(boardMonster+randValue)).type/*de là*/=0/*à là, remplacer par un appel de bd*/;
+    }
+}

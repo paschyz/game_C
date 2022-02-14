@@ -16,7 +16,8 @@ struct character{
 };
 typedef struct character character;
 void runTxt();
-void loadCharaTxt(character * charaTab,int taille);
+void loadCharaTxt(character * charaTab,int size);
+void loadMonsterTxt(character *monsterBoard,int size);
 #endif //PROJET_2A_CLION_DECLARATIONS_H
 
 
