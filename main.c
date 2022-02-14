@@ -66,6 +66,7 @@ void runTxt(){
 
 
 
+
 }
 
 void loadCharaTxt(character *charaTab,int size){
@@ -84,10 +85,10 @@ void loadMonsterTxt(character *boardMonster,int sizeMonster){
     printf("placing monster on board\n");
     for(int i=0;i<5;i++){
         randValue=rand()%(sizeMonster);
-        (*(boardMonster+randValue)).name/*de là*/[0]="a"/*à là, remplacer par un appel de bd*/;
-        (*(boardMonster+randValue)).hp/*de là*/=0/*à là, remplacer par un appel de bd*/;
-        (*(boardMonster+randValue)).att/*de là*/=0/*à là, remplacer par un appel de bd*/;
-        (*(boardMonster+randValue)).skill/*de là*/=0/*à là, remplacer par un appel de bd*/;
-        (*(boardMonster+randValue)).type/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(boardMonster+i)).name/*de là*/[0]="a"/*à là, remplacer par un appel de bd avec randValue*/;
+        (*(boardMonster+i)).hp/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
+        (*(boardMonster+i)).att/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
+        (*(boardMonster+i)).skill/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
+        (*(boardMonster+i)).type/*de là*/=0/*à là, remplacer par un appel de bd avec randValue*/;
     }
 }
