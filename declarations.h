@@ -7,7 +7,6 @@ void launch(int verif);
 int askLaunch();
 int quit();
 struct character{
-    int id;
     char name[32];
     int hp;
     int att;
@@ -15,6 +14,9 @@ struct character{
     int type;
 
 };
+typedef struct character character;
+void runTxt();
+void loadCharaTxt(character * charaTab,int taille);
 #endif //PROJET_2A_CLION_DECLARATIONS_H
 
 

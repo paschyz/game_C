@@ -30,7 +30,7 @@ int askLaunch(){
 void launch(int verif){
     switch (verif) {
         case 0:
-            printf("text version is still in dev\n quitting\n");//this line must be removed with a function call
+            runTxt();//this line must be removed with a function call
             break;
         case 1 :
             printf("graphical version is still in dev\n quitting\n");//this line must be removed with a function call
@@ -53,5 +53,22 @@ int quit(){
             printf("Wrong Answer!!!\n");
     }while(response!=0&&response!=1);
     return response;
+}
+
+void runTxt(){
+    int taille/*=remplacer par le nombre de personnages jouables de la BD*/;
+    character charaTab[taille];
+
+}
+
+void loadCharaTxt(character *charaTab,int taille){
+    printf("loading character\n");
+    for(int i=0;i<taille;i++){
+        (*(charaTab+i)).name/*de là*/[0]="a"/*à là, remplacer par un appel de bd*/;
+        (*(charaTab+i)).hp/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(charaTab+i)).att/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(charaTab+i)).skill/*de là*/=0/*à là, remplacer par un appel de bd*/;
+        (*(charaTab+i)).type/*de là*/=0/*à là, remplacer par un appel de bd*/;
+    }
 }
 
