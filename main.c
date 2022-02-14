@@ -122,7 +122,7 @@ void loadMonsterTxt(character *boardMonster,int sizeMonster){
 void firstLoadCharaBoardTxt(character *boardChara){
     for(int i=0;i<5;i++){
         strcpy((*(boardChara+i)).name,"empty");
-        (*(boardChara+i)).hp=0;
+        (*(boardChara+i)).hp=-1;
         (*(boardChara+i)).maxhp=0;
         (*(boardChara+i)).att=0;
         (*(boardChara+i)).skill;
@@ -207,7 +207,7 @@ int selectBoardSlot(character *board,character *charaTab,int sizeChara){
     int response;
     int alreadyUsed[sizeChara];
     for (int i = 0; i < sizeChara; ++i) {
-        alreadyUsed[i]=0;
+        alreadyUsed[i]=-1;
     }
     do {
         do {
@@ -232,22 +232,44 @@ int selectBoardSlot(character *board,character *charaTab,int sizeChara){
 }
 void assignToSlot(character *board,character *charaTab, int sizeChara,int slot,int *alreadyUsed){
     int response;
-    int verifUsed=0;
     do{
         for ( int i = 0; i < sizeChara; i++) {
-            if(alreadyUsed[i]==0)
-                printf("%d)%s\n",i,(*(charaTab+i)).name);
+
+            printf("%d)%s\n",i,(*(charaTab+i)).name);
         }
-        printf("%d)Cancel\n",sizeChara);
+        printf("%d)Empty\n",sizeChara);
+        printf("%d)Cancel\n",sizeChara+1);
         fflush(stdin);
         scanf("%d",&response);
         if(response>sizeChara||response<0)
             printf("Nah wrong answer!!! Try again\n");
     }while(response>sizeChara||response<0);
-    *(board+slot)=*(charaTab+response);
-    *(alreadyUsed+response)=1;
+    if (response!=6&&response!=7) {
 
+        if(alreadyUsed[response]==-1){
+            *(board + slot) = *(charaTab + response);
+            *(alreadyUsed + response) = slot;
+        }
+        else{
+            *(board + slot) = *(charaTab + response);
+            removeFromSlot(board,alreadyUsed[response]);
+            *(alreadyUsed + response) = slot;
+        }
+
+    }
+    else if(response==6) {
+        removeFromSlot(board,slot);
+    }
 }
+void removeFromSlot(character *board,int slot){
+    strcpy((*(board+slot)).name,"empty");
+    (*(board+slot)).hp=-1;
+    (*(board+slot)).maxhp=0;
+    (*(board+slot)).att=0;
+    (*(board+slot)).skill;
+    (*(board+slot)).type;
+}
+
 
 void printEnemieBoard(character *board){
     for(int i=0;i<boardSize;i++){

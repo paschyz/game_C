@@ -33,6 +33,7 @@ void printSkillTxt(int skillNumber);
 int selectBoardSlot(character *board,character *charaTab,int sizeChara);
 void resetHeroHP(character *board);
 void assignToSlot(character *board,character *charaTab,int sizeChara,int slot,int *alreadyUsed);
+void removeFromSlot(character *board,int slot);
 void firstLoadCharaBoardTxt(character *boardChara);
 
 
