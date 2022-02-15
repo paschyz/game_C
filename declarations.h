@@ -22,21 +22,25 @@ void loadCharaTxt(character * charaTab,int size);
 void loadMonsterTxt(character *monsterBoard,int size);
 int askMenuTxt();
 void menuResolutionTxt(int response, character *charaTab,character *board, int sizeChara);
+void resetHPTxt(character *board);
 void startPlayingTxt(character *charaTab,character *board,int sizeChara);
-void printEnemieBoard(character *board);
-void printAlliesBoard(character *board);
-void printCharaTxt();
+void printAllBoardTxt(character *board);
+void printCharaTxt(character selectedChara);
 void printMultCharaTxt(character *charaTab,int sizeChara);
 void seeCharaTxt(character *charaTab,int sizeChara);
 void printTypeTxt(int typeNumber);
 void printSkillTxt(int skillNumber);
-int selectBoardSlot(character *board,character *charaTab,int sizeChara);
-void resetHeroHP(character *board);
-void assignToSlot(character *board,character *charaTab,int sizeChara,int slot,int *alreadyUsed);
-void removeFromSlot(character *board,int slot);
+int selectBoardSlotTxt(character *board,character *charaTab,int sizeChara);
+void assignToSlotTxt(character *board,character *charaTab,int sizeChara,int slot,int *alreadyUsed);
+void removeFromSlotTxt(character *board,int slot);
 void firstLoadCharaBoardTxt(character *boardChara);
-
-
+void startGameTxt(character *board);
+int countTotalHp(character *board);
+void allAttacksTxt(character *board);
+void doDamage(character *board,int target,int attacker);
+void doSkills(character *board);
+void gameDescription();
+void winConditionTxt(character *board);
 
 #endif //PROJET_2A_CLION_DECLARATIONS_H
 
